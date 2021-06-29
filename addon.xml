@@ -5,6 +5,13 @@ name="Example Kodi Video Plugin"
 provider-name="Roman_V_M">
 <requires>
   <import addon="xbmc.python" version="3.0.0"/>
+  <import addon="script.module.routing" version="0.2.0"/>
+  <import addon="script.module.beautifulsoup4" version="4.9.3"/>
+  <import addon="script.module.youtube.dl" version="21.303.0"/>
+  <import addon="script.module.resolveurl" version="5.1.00"/>
+  <import addon="script.module.inputstreamhelper" version="0.5.2"/>
+  <import addon="inputstream.adaptive" version="1.0.8"/>
+  <import addon="plugin.video.vimeo" version="6.0.0"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -16,9 +23,9 @@ provider-name="Roman_V_M">
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
-    <screenshot>resources\screenshot-01.jpg</screenshot>
-    <screenshot>resources\screenshot-02.jpg</screenshot>
-    <screenshot>resources\screenshot-03.jpg</screenshot>    
+    <screenshot>resources/screenshot-01.jpg</screenshot>
+    <screenshot>resources/screenshot-02.jpg</screenshot>
+    <screenshot>resources/screenshot-03.jpg</screenshot>
   </assets>
   <news>Updated with latest artwork metadata</news>
 </extension>
