@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.example"
-version="2.4.0"
-name="Example Kodi Video Plugin"
+version="2.4.1"
+name="Example Kodi Video Plugin with sample site horscine.org"
 provider-name="Roman_V_M">
 <requires>
   <import addon="xbmc.python" version="3.0.0"/>
@@ -12,14 +12,18 @@ provider-name="Roman_V_M">
   <import addon="script.module.inputstreamhelper" version="0.5.2"/>
   <import addon="inputstream.adaptive" version="1.0.8"/>
   <import addon="plugin.video.vimeo" version="6.0.0"/>
+  <import addon="plugin.video.youtube" version="6.8.15"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">Example Kodi Video Plugin</summary>
+  <summary lang="en">Example Kodi Video Plugin with horscine.org</summary>
   <description lang="en_GB">An example video plugin for Kodi mediacenter.</description>
-  <disclaimer lang="en_GB">Free sample videos are provided by www.vidsplay.com.</disclaimer>
+  <disclaimer lang="en_GB">Free sample videos are provided by horscine.org.</disclaimer>
+  <summary lang="fr">Exemple de module vidéo Kodi avec horscine.org</summary>
+  <description lang="fr_CA">Un exemple de module vidéo pour Kodi.</description>
+  <disclaimer lang="fr_CA">Exemples gratuits de vidéos viennent de horscine.org.</disclaimer>
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
