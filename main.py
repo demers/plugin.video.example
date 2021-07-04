@@ -116,11 +116,14 @@ def convert_video_path(path):
 @plugin.route('/')
 def index():
     categories = get_categories()
-    xbmcplugin.setPluginCategory(plugin.handle, 'My Video Collection')
+    xbmcplugin.setPluginCategory(plugin.handle, 'Vidéos Horscine.org')
     xbmcplugin.setContent(plugin.handle, 'videos')
 
-    url = plugin.url_for(search, query="hello world")
-    xbmcplugin.addDirectoryItem(plugin.handle, url, xbmcgui.ListItem("Recherche"))
+    # query_input = get_user_input()
+    # url = plugin.url_for(search, query=query_input)
+    url = plugin.url_for(search)
+    # url = plugin.url_for(search, query="hello world")
+    xbmcplugin.addDirectoryItem(plugin.handle, url, xbmcgui.ListItem("Recherche"), True)
 
     category_number = 0
     for category in categories:
@@ -155,10 +158,53 @@ def index():
     # Finish creating a virtual folder.
     xbmcplugin.endOfDirectory(plugin.handle)
 
+def get_user_input():
+    kb = xbmc.Keyboard('', 'Entrez ce que vous cherchez... ')
+    kb.doModal() # Onscreen keyboard appears
+    if not kb.isConfirmed():
+        return
+    query = kb.getText() # User input
+    return query
+
 @plugin.route('/search')
 def search():
-    query = plugin.args['query'][0]
-    xbmcplugin.addDirectoryItem(plugin.handle, "", xbmcgui.ListItem("You searched for '%s'" % query))
+    query_result = get_user_input()
+    xbmcplugin.setPluginCategory(plugin.handle, 'Résultats de recherche')
+    xbmcplugin.setContent(plugin.handle, 'videos')
+    # url = plugin.url_for(show_search_result, query)
+    # query_result = plugin.args['query'][0]
+
+    list_item = xbmcgui.ListItem(label=query_result)
+    # Set additional info for the list item.
+    # 'mediatype' is needed for skin to display info for this ListItem correctly.
+    list_item.setInfo('video', {'title': query_result,
+                                'genre': '',
+                                'mediatype': 'video'})
+    # Set graphics (thumbnail, fanart, banner, poster, landscape etc.) for the list item.
+    # Here we use the same image for all items for simplicity's sake.
+    # In a real-life plugin you need to set each image accordingly.
+    list_item.setArt({'thumb': '', 'icon': '', 'fanart': ''})
+    # Set 'IsPlayable' property to 'true'.
+    # This is mandatory for playable items!
+    list_item.setProperty('IsPlayable', 'true')
+    # Create a URL for a plugin recursive call.
+    # Example: plugin://plugin.video.example/?action=play&video=http://www.vidsplay.com/wp-content/uploads/2017/04/crab.mp4
+    # url = plugin.url_for(show_category, category)
+    category_number = 0
+    video_number = 0
+    url = plugin.url_for(route_play_video, category_number, video_number)
+    # Add the list item to a virtual Kodi folder.
+    # is_folder = False means that this item won't open any sub-list.
+    is_folder = False
+    # Add our item to the Kodi virtual folder listing.
+    xbmcplugin.addDirectoryItem(plugin.handle, url, list_item, is_folder)
+    # xbmcplugin.addDirectoryItem(plugin.handle, "", xbmcgui.ListItem("Vous avez cherché pour '%s'" % query_result))
+    xbmcplugin.addSortMethod(plugin.handle, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
+    xbmcplugin.endOfDirectory(plugin.handle)
+
+# @plugin.route('/show_search_result/<search_result>')
+# def show_search_result(search_result):
+
 
 @plugin.route('/category/<category_number>')
 def show_category(category_number):
