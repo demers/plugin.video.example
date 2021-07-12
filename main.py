@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 # Module: main
-# Author: Roman V. M. and Francois-N. Demers
+# Author: Roman V. M. and modified by Francois-N. Demers
 # Created on: 28.11.2014
 # Modified on: 29.06.2021 by adding use of script.module.routing
 # License: GPL v.3 https://www.gnu.org/copyleft/gpl.html
@@ -20,8 +21,6 @@ import url_web
 
 # Get the plugin url in plugin:// notation.
 _URL = sys.argv[0]
-# Get the plugin handle as an integer number.
-# _HANDLE = int(sys.argv[1])
 
 plugin = routing.Plugin()
 
@@ -37,7 +36,6 @@ def play_video(path):
 
     # Pass the item to the Kodi player.
     xbmcplugin.setResolvedUrl(plugin.handle, True, listitem=play_item)
-    # play_video("plugin://plugin.video.youtube/play/?video_id=yHafN0M2kl0")
 
 @plugin.route('/')
 def index():
@@ -106,26 +104,26 @@ def search():
 
         # url = plugin.url_for(show_search_result, query)
         # query_result = plugin.args['query'][0]
-        list_item = xbmcgui.ListItem(label=result_item)
+        list_item = xbmcgui.ListItem(label=result_item['name'])
         # Set additional info for the list item.
         # 'mediatype' is needed for skin to display info for this ListItem correctly.
 
-        list_item.setInfo('video', {'title': result_item['title'],
+        list_item.setInfo('video', {'title': result_item['name'],
                                     'genre': result_item['genre'],
                                     'mediatype': 'video'})
         # Set graphics (thumbnail, fanart, banner, poster, landscape etc.) for the list item.
         # Here we use the same image for all items for simplicity's sake.
         # In a real-life plugin you need to set each image accordingly.
-        list_item.setArt({'thumb': result_item['thumb'], 'icon': result_item['icon'], 'fanart': result_item['fanart']})
+        list_item.setArt({'thumb': result_item['thumb'], 'icon': result_item['thumb'], 'fanart': result_item['thumb']})
         # Set 'IsPlayable' property to 'true'.
         # This is mandatory for playable items!
         list_item.setProperty('IsPlayable', 'true')
         # Create a URL for a plugin recursive call.
         # Example: plugin://plugin.video.example/?action=play&video=http://www.vidsplay.com/wp-content/uploads/2017/04/crab.mp4
         # url = plugin.url_for(show_category, category)
-        category_number = 0
-        video_number = 0
-        url = plugin.url_for(route_play_video, category_number, video_number)
+        # url = plugin.url_for(route_play_video, result_item['video'])
+        url_for_sent = result_item['video']
+        url = plugin.url_for(route_play_video, url_result=url_for_sent)
         # Add the list item to a virtual Kodi folder.
         # is_folder = False means that this item won't open any sub-list.
         is_folder = False
@@ -170,7 +168,7 @@ def show_category(category_number):
         # Create a URL for a plugin recursive call.
         # Example: plugin://plugin.video.example/?action=play&video=http://www.vidsplay.com/wp-content/uploads/2017/04/crab.mp4
         # url = plugin.url_for(show_category, category)
-        url = plugin.url_for(route_play_video, category_number, video_number)
+        url = plugin.url_for(route_play_category_video, category_number, video_number)
         # Add the list item to a virtual Kodi folder.
         # is_folder = False means that this item won't open any sub-list.
         is_folder = False
@@ -182,8 +180,8 @@ def show_category(category_number):
     # Finish creating a virtual folder.
     xbmcplugin.endOfDirectory(plugin.handle)
 
-@plugin.route('/video/<category_number>/<video_number>')
-def route_play_video(category_number, video_number):
+@plugin.route('/video_category/<category_number>/<video_number>')
+def route_play_category_video(category_number, video_number):
     # From category_number, extract category_id
     category_id = list(url_web.get_categories())[int(category_number)]
     videos = url_web.get_videos(category_id)
@@ -192,6 +190,14 @@ def route_play_video(category_number, video_number):
 
     # Use function convert_video_path to get exact path string.
     exact_video_path_to_play = url_web.convert_video_path(video_id['video'])
+    play_video(exact_video_path_to_play)
+
+@plugin.route('/video')
+def route_play_video():
+
+    video_url = plugin.args['url_result'][0]
+    # Use function convert_video_path to get exact path string.
+    exact_video_path_to_play = url_web.convert_video_path(video_url)
     play_video(exact_video_path_to_play)
 
 if __name__ == '__main__':

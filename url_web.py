@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Free sample videos are provided by horscine.org
 # Here we use a fixed set of properties simply for demonstrating purposes
 # In a "real life" plugin you will need to get info and links to video files/streams
@@ -68,13 +69,40 @@ def get_videos(category):
     """
     return VIDEOS[category]
 
-# Function to test
-def convert_video_path(path):
+from urllib.parse import urlparse
+import os.path
+
+def convert_video_path(path_video):
     """
     Convert path string to exact path string
     considering video type (Vimeo, Youtube, other).
     """
-    return path
+
+    # Extract domain name
+    domain = urlparse(path_video).netloc
+
+    # Extract path from URL
+    urlpath = urlparse(path_video).path
+
+    return_path = ''
+    # Vimeo
+    if domain.lower() == 'player.vimeo.com':
+
+        without_extra_slash = os.path.normpath(urlpath)
+        last_part = os.path.basename(without_extra_slash)
+
+        return_path = 'plugin://plugin.video.vimeo/play/?video_id=' + last_part
+
+    # Youtube
+    elif domain.lower() == 'www.youtube.com':
+        id_youtube = urlparse(video).query.split('=')[1]
+
+        return_path = 'plugin://plugin.video.youtube/play/?video_id=' + id_youtube
+    else:
+        # No change
+        return_path = path_video
+
+    return return_path
 
 def get_list_search_results(keywordsearch):
     """
@@ -82,5 +110,13 @@ def get_list_search_results(keywordsearch):
     """
 
     list_results = list()
+    list_results.append({'name': 'De rien',
+                      'thumb': 'https://horscine.org/wp-content/uploads/de-rien.jpg',
+                      'video': 'https://player.vimeo.com/video/367593464?dnt=1&app_id=122963',
+                      'genre': 'Film'})
+    list_results.append({'name': 'The balloonatic',
+                      'thumb': 'https://horscine.org/wp-content/uploads/theballoonatic.jpg',
+                      'video': 'https://player.vimeo.com/video/1084537?dnt=1&app_id=122963',
+                      'genre': 'Food'})
     return list_results
 
