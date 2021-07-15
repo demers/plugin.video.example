@@ -2,6 +2,10 @@ import url_web
 
 import unittest
 
+from bs4 import BeautifulSoup
+import urllib.request
+
+
 class GetWebTests(unittest.TestCase):
 
     def test_get_categories(self):

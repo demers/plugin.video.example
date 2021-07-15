@@ -3,6 +3,17 @@
 # Here we use a fixed set of properties simply for demonstrating purposes
 # In a "real life" plugin you will need to get info and links to video files/streams
 # from some web-site or online service.
+
+from bs4 import BeautifulSoup
+import urllib.request
+# liste_soup = beautiful(browser.page_source)
+# if liste_soup.find("td", {"class", "cPhoto"}) != None:
+    # img = browser.find_element_by_xpath('//td[@class="cPhoto"]/img')
+    # src = img.get_attribute('src')
+# else:
+    # src = ''
+    # reponse = False
+
 VIDEOS = {'Le film de la semaine': [{'name': "L'homme de la rue",
                        'thumb': 'https://horscine.org/wp-content/uploads/Affiche-lhomme-de-la-rue.jpg',
                        'video': 'https://archive.org/serve/lhomme-de-la-rue/lhomme-de-la-rue-DP.ia.mp4',
