@@ -3,6 +3,8 @@
 export PYTHONPATH=$PWD
 echo python path is: $PYTHONPATH
 
+source tests-venv/bin/activate
+
 #run unittest
 python3 -m unittest discover -s tests -v -p test_*.py
 if [ $? -ne 0 ]

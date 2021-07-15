@@ -82,6 +82,7 @@ def index():
     # Finish creating a virtual folder.
     xbmcplugin.endOfDirectory(plugin.handle)
 
+# https://forum.kodi.tv/showthread.php?tid=312476
 def get_user_input():
     kb = xbmc.Keyboard('', 'Entrez ce que vous cherchez... ')
     kb.doModal() # Onscreen keyboard appears
