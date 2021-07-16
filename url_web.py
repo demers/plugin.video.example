@@ -4,6 +4,11 @@
 # In a "real life" plugin you will need to get info and links to video files/streams
 # from some web-site or online service.
 
+# Import librairies to manage urls
+from urllib.parse import urlparse
+import os.path
+
+# Import libraries to analyse Web pages
 from bs4 import BeautifulSoup
 import urllib.request
 # liste_soup = beautiful(browser.page_source)
@@ -80,9 +85,6 @@ def get_videos(category):
     """
     return VIDEOS[category]
 
-from urllib.parse import urlparse
-import os.path
-
 def convert_video_path(path_video):
     """
     Convert path string to exact path string
@@ -106,7 +108,7 @@ def convert_video_path(path_video):
 
     # Youtube
     elif domain.lower() == 'www.youtube.com':
-        id_youtube = urlparse(video).query.split('=')[1]
+        id_youtube = urlparse(path_video).query.split('=')[1]
 
         return_path = 'plugin://plugin.video.youtube/play/?video_id=' + id_youtube
     else:
