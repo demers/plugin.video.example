@@ -22,33 +22,40 @@ import urllib.request
 VIDEOS = {'Le film de la semaine': [{'name': "L'homme de la rue",
                        'thumb': 'https://horscine.org/wp-content/uploads/Affiche-lhomme-de-la-rue.jpg',
                        'video': 'https://archive.org/serve/lhomme-de-la-rue/lhomme-de-la-rue-DP.ia.mp4',
-                       'genre': 'Film'}
+                       'genre': 'Film',
+                        'description': 'Voici ma description.'}
                       ],
             'Les autres nouveautés': [{'name': 'La Parade, ou la vie en pull bleu',
                       'thumb': 'https://horscine.org/wp-content/uploads/la-parade-ou-la-vie-en-pull-bleu.jpg',
                       'video': 'https://player.vimeo.com/video/45519017?dnt=1&app_id=122963',
-                      'genre': 'Film'},
+                      'genre': 'Film',
+                        'description': 'Voici ma description.'},
                      {'name': 'De rien',
                       'thumb': 'https://horscine.org/wp-content/uploads/de-rien.jpg',
                       'video': 'https://player.vimeo.com/video/367593464?dnt=1&app_id=122963',
-                      'genre': 'Film'},
+                      'genre': 'Film',
+                      'description': 'Voici ma description.'},
                      {'name': 'Artist 110',
                       'thumb': 'https://horscine.org/wp-content/uploads/ARTIST110.jpg',
                       'video': 'https://player.vimeo.com/video/202509514?dnt=1&app_id=122963',
-                      'genre': 'Film'}
+                      'genre': 'Film',
+                      'description': 'Voici ma description.'}
                      ],
             'Films au hasard': [{'name': "The cavalier's dream",
                       'thumb': 'https://horscine.org/wp-content/uploads/the-cavaliers-dream.jpg',
                       'video': 'https://archive.org/serve/CavaliersDream/Cavalier%27s_Dream.mp4',
-                      'genre': 'Film'},
+                      'genre': 'Film',
+                      'description': 'Voici ma description.'},
                      {'name': 'Spring',
                       'thumb': 'https://horscine.org/wp-content/uploads/2020/11/spring.jpg',
                       'video': 'https://player.vimeo.com/video/77059630?dnt=1&app_id=122963',
-                      'genre': 'Film'},
+                      'genre': 'Film',
+                      'description': 'Voici ma description.'},
                      {'name': 'The balloonatic',
                       'thumb': 'https://horscine.org/wp-content/uploads/theballoonatic.jpg',
                       'video': 'https://player.vimeo.com/video/1084537?dnt=1&app_id=122963',
-                      'genre': 'Food'}
+                      'genre': 'Food',
+                      'description': 'Voici ma description.'}
                      ]}
 
 def get_categories():
@@ -126,10 +133,12 @@ def get_list_search_results(keywordsearch):
     list_results.append({'name': 'De rien',
                       'thumb': 'https://horscine.org/wp-content/uploads/de-rien.jpg',
                       'video': 'https://player.vimeo.com/video/367593464?dnt=1&app_id=122963',
-                      'genre': 'Film'})
+                      'genre': 'Film',
+                      'description': 'Voici ma description.'})
     list_results.append({'name': 'The balloonatic',
                       'thumb': 'https://horscine.org/wp-content/uploads/theballoonatic.jpg',
                       'video': 'https://player.vimeo.com/video/1084537?dnt=1&app_id=122963',
-                      'genre': 'Food'})
+                      'genre': 'Food',
+                      'description': 'Voici ma description.'})
     return list_results
 
