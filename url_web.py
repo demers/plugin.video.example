@@ -21,13 +21,13 @@ import urllib.request
 
 VIDEOS = {'Le film de la semaine': [{'name': "L'homme de la rue",
                        'thumb': 'https://horscine.org/wp-content/uploads/Affiche-lhomme-de-la-rue.jpg',
-                       'video': 'https://archive.org/serve/lhomme-de-la-rue/lhomme-de-la-rue-DP.ia.mp4',
+                       'video': 'https://archive.org/download/lhomme-de-la-rue/lhomme-de-la-rue-DP.ia.mp4',
                        'genre': 'Film',
                         'description': 'Voici ma description.'}
                       ],
             'Les autres nouveautés': [{'name': 'La Parade, ou la vie en pull bleu',
                       'thumb': 'https://horscine.org/wp-content/uploads/la-parade-ou-la-vie-en-pull-bleu.jpg',
-                      'video': 'https://player.vimeo.com/video/45519017?dnt=1&app_id=122963',
+                      'video': 'https://invidious.fdn.fr/embed/MvKeA_TKsBc',
                       'genre': 'Film',
                         'description': 'Voici ma description.'},
                      {'name': 'De rien',
